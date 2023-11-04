@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Layout } from "../../components/Layout";
 import { getAllPostIds, getPostData } from "../../lib/posts";
 
-export default function Post({ post }) {
+const Post = ({ post }) => {
   if (!post) {
     return <div>Loading...</div>;
   }
@@ -37,7 +37,9 @@ export default function Post({ post }) {
       </Link>
     </Layout>
   );
-}
+};
+
+export default Post;
 
 export const getStaticPaths = async () => {
   const paths = await getAllPostIds();
@@ -49,7 +51,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const { post: post } = await getPostData(params.id);
+  const post = await getPostData(params.id);
   return {
     props: {
       post,
